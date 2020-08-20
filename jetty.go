@@ -83,6 +83,10 @@ func main() {
 	d.Timeout = 500 * time.Millisecond // Wait 500ms for response, if not give up.
 	if err != nil {
 		fmt.Printf("Error occurred while trying to resolve the URL\n Error: %s\n", err)
+		// Abstract lookup host to another file, try ipv6 first as faster
+		fmt.Printf("Please enter your revised URL: ")
+		fmt.Scanf("%s\n", Target.addrs)
+		Target.addrs, err = net.LookupHost(URL)
 	}
 
 	// River channel to send ports on for go routines to pick up when they can.
