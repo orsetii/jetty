@@ -11,7 +11,12 @@
             "mode": "debug",
             "program": "${fileDirname}",
             "env": {},
-            "args": ["-u", "scanme.nmap.org", "-p", "80-443", "-v"]
+            "args": ["-u", "scanme.nmap.org", "-p", "0-1024", "-timeout", "200", "-v", "-t", "40"]
         }
     ]
 }
+
+
+// Verbose big scan - "args": ["-u", "scanme.nmap.org", "-p", "0-1024", "-timeout", "500", "-v"]
+// Small non-verbose scan
+// No URL test scan - "args": ["-u", "-p", "0-1024", "-timeout", "500", "-v"]
