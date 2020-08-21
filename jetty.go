@@ -3,13 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"net"
 	"strconv"
-	"time"
-
-	//"net/http"
-	"log"
 	"strings"
+	"time"
 )
 
 var (
@@ -68,8 +66,8 @@ type result struct {
 
 func init() {
 	flag.StringVar(&URL, "u", "", "The URL you want to scan.") //TODO make this into a list flag.
-	flag.IntVar(&Threads, "t", 10, "The amount of threads you want to scan with.")
-	flag.Var(&Target.harbour, "p", "What ports do you want to scan.('-p 0-1024')")
+	flag.IntVar(&Threads, "t", 10, "How many threads you want to scan. Defaults to 20, I would recommend around 40 if you have a good internet connection. ")
+	flag.Var(&Target.harbour, "p", "Enter ports to scan. Must be done in format `x-y` (to be fixed.)")
 	flag.BoolVar(&verbose, "v", false, "Enable verbose output.") // Maybe change this so dont have to pass it to functions
 	flag.IntVar(&timeout, "timeout", 350, "Time to wait for response from target.")
 }
