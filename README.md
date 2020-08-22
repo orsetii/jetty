@@ -31,28 +31,3 @@ cd $GOPATH/src/github.com/jetty
 
 go install
 ```
-
-## TODO
-Ordered by priority
-
-Create mode to pipe in x urls and scan each one.
-
-In scanning function, attempt to use ipv6.(20% faster apparently)
-
-Map services to ports(via what x port is usually used for)
-
-Add checking for 'filtered ports'  - https://nmap.org/book/man-port-scanning-basics.html
-
-Add functionality to have nmap-like port specification.
-Port flags to getopt package for better shit https://godoc.org/github.com/pborman/getopt
-
-
-Add stdin piping scanning functionality
-
-Add stdout flag to print out an open port per line for easier interaction with other tools
-make a cool ASCII banner when it starts
-
-Add nmap script functionality
-
-
-Test change in memory usage from 1k cap channel to 65k cap channel. River channel to be exact.
