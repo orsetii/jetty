@@ -55,6 +55,7 @@ var Target struct {
 		ipsUsed     []string
 		timeTaken   time.Duration
 	}
+	bestAddrs []string
 }
 
 type result struct {
@@ -92,7 +93,7 @@ func main() {
 	fmt.Printf("Resolving URL...\n\n")
 
 	d.Timeout = time.Millisecond * time.Duration(timeout) // Wait 500ms for response, if not give up.
-	Target.addrs = resolve([]string{URL})
+	Target.addrs = resolve(URL)
 	if len(Target.addrs) < 1 {
 		log.Fatalf("\nCould not resolve URL to any addresses.\nPlease try again.\n")
 	}
@@ -113,7 +114,7 @@ func main() {
 			if verbose {
 				log.Printf("Port %d open", res.port)
 			} else {
-				fmt.Printf("Port %d open", res.port)
+				fmt.Printf("Port %d open\n", res.port)
 			}
 		} else {
 			Target.Total.closedPorts = append(Target.Total.closedPorts, res.port)
@@ -140,15 +141,12 @@ func ring(r chan int, results chan result) {
 	}
 }
 
-func resolve(urls []string) (Ips []string) { // TODO ADD IPS USED TO TARGET.TOTAL STRUCT AS AND WHEN INSIDE THIS FUNC
-	for _, u := range urls {
-		uResolved, err := net.LookupHost(u)
-		if err != nil && verbose {
-			log.Printf("Error occurred while trying to resolve URL: %s\n Error: %s\n", u, err)
-			continue
-		}
-		Ips = append(Ips, uResolved...)
+func resolve(url string) (Ips []string) { // TODO ADD IPS USED TO TARGET.TOTAL STRUCT AS AND WHEN INSIDE THIS FUNC
+	uResolved, err := net.LookupHost(url)
+	if err != nil && verbose {
+		log.Printf("Error occurred while trying to resolve URL: %s\n Error: %s\n", url, err)
 	}
+	Ips = append(Ips, uResolved...)
 	return Ips
 }
 
@@ -156,6 +154,6 @@ func resolve(urls []string) (Ips []string) { // TODO ADD IPS USED TO TARGET.TOTA
 func scorecard() {
 	fmt.Printf("-----------------\nTime Taken %.2f seconds \n%d Ports scanned\n%d Ports Open:\n", Target.Total.timeTaken.Seconds(), len(Target.harbour), len(Target.Total.openPorts))
 	for _, open := range Target.Total.openPorts {
-		fmt.Printf("	Port %d open\n", open)
+		fmt.Printf("Port %d open\n", open)
 	}
 }
