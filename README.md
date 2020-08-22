@@ -10,7 +10,7 @@ Runs on average 3x faster than nmap, does not miss any ports.(at least in my tes
 
 `-p` Enter ports to scan. Must be done in format `x-y` (to be fixed.)
 
-`-t` How many threads you want to scan. Defaults to 20, I would recommend around 40 if you have a good internet connection. 
+`-t` How many threads you want to use for scanning. Defaults to 20, I would recommend around 40 if you have a good internet connection. 
 
 `-v` Enable verbose logging.
 
